@@ -1,0 +1,115 @@
+<!--program31 a program to show the use of add/remove the data,validation and perform event on the data-->
+<html>
+<head>
+<title>raj</title>
+<style>
+.c1{color:red;}
+</style>
+</head>
+<body ng-app="myApp">
+<h3>A program for Dynamic operation</h3>
+<hr/>
+<div ng-controller="DemoController">
+<form name="f1" novalidate>
+EmpNo:<input type="text" ng-model="empno" ng-required="true" name="t1"/>
+<span class="c1" ng-show="f1.t1.$error.required && f1.t1.$dirty">
+Employee Number is mandatory
+</span>
+<br></br>
+Ename:<input type="text" ng-model="ename" ng-required="true" name="t2"
+ng-minlength="5"
+ng-maxlength="20"/>
+<span class="c1" ng-show="f1.t2.$error.minlength && f1.t2.$dirty">
+Employee name is required minimum 5 characters
+</span>
+<span class="c1" ng-show="f1.t2.$error.maxlength && f1.t2.$dirty">
+Employee name is allows maximum 20 characters
+</span>
+
+<br></br>
+Job:<input type="text" ng-model="job" ng-required="true" name="t3"/>
+<span class="c1" ng-show="f1.t3.$error.required && f1.t3.$dirty">
+Job is mandatory
+</span>
+
+<br></br>
+Salary:<input type="text" ng-model="salary" ng-required="true" name="t4">
+<span class="c1" ng-show="f1.t4.$error.required && f1.t4.$dirty">
+Salary is mandatory
+</span>
+<input type="button" ng-click="f12()" value="Add Emp" name="t5" ng-disabled="f1.$invalid"/>
+<input type="reset" ng-click="f4()" value="Reset" name="t6"/>
+</form>
+<br></br>
+<table border="3">
+<tr>
+<th>Empno</th>
+<th>Ename</th>
+<th>Job</th>
+<th>Salary</th>
+<th></th>
+</tr>
+<tr ng-repeat="item in emps">
+<td>{{item.empno}}</td>
+<td>{{item.ename}}</td>
+<td>{{item.job}}</td>
+<td>{{item.sal}}</td>
+<td>
+<a href="#" ng-click="f2($index)">Delete</a> ||
+<a href="#" ng-click="f3($index)">Select</a>
+</td>
+</tr>
+</table>
+{{}}
+</div>
+<script src="angular.js"></script>
+<script>
+var app=angular.module("myApp",[]);
+app.controller("DemoController",function($scope)
+{
+$scope.t1="";
+$scope.t2="";
+$scope.t3="";
+$scope.t4="";
+$scope.emps=
+[
+{empno:7369,ename:"Scott",job:"Analyst",sal:1000},
+{empno:7499,ename:"Miller",job:"manager",sal:5000},
+{empno:7839,ename:"John",job:"clerk",sal:4000},
+{empno:7789,ename:"King",job:"President",sal:5500}
+];
+//Add emp
+$scope.f12=function()
+{
+var Obj={};
+Obj.empno=$scope.empno;
+Obj.ename=$scope.ename;
+Obj.job=$scope.job;
+Obj.sal=$scope.salary;
+$scope.emps.push(Obj);
+};
+//Reset emp
+$scope.f4=function()
+{
+$scope.empno="";
+$scope.ename="";
+$scape.job="";
+$scope.salary="";
+};
+//Delete emp
+$scope.f2=function(n)
+{
+$scope.emps.splice(n,1);
+};
+//select emp
+$scope.f3=function(n)
+{
+$scope.empno=$scope.emps[n].empno;
+$scope.ename=$scope.emps[n].ename;
+$scope.job=$scope.emps[n].job;
+$scope.salary=$scope.emps[n].sal;
+};
+});
+</script>
+</body>
+</html>
